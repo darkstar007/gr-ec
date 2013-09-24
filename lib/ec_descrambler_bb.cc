@@ -22,7 +22,7 @@
 #include "config.h"
 #endif
 
-#include <gr_io_signature.h>
+#include <gnuradio/io_signature.h>
 #include <ec_descrambler_bb.h>
 #include <stdexcept>
 
@@ -35,9 +35,9 @@ return ec_descrambler_bb_sptr (new ec_descrambler_bb (tap_mask, preload));
 
 
 ec_descrambler_bb::ec_descrambler_bb (unsigned int tap_mask, unsigned int preload)
-: gr_sync_block ("descrambler_bb",
-		   gr_make_io_signature (1, 1, sizeof (unsigned char)),
-		   gr_make_io_signature (1, 1, sizeof (unsigned char))),
+     : gr::sync_block ("descrambler_bb",
+		       gr::io_signature::make (1, 1, sizeof (unsigned char)),
+		       gr::io_signature::make (1, 1, sizeof (unsigned char))),
            d_shift_register(preload)
 {
     // EXCEPTION TEST FOR tap_mask containing bit 0

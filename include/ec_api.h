@@ -22,7 +22,7 @@
 #ifndef INCLUDED_EC_API_H
 #define INCLUDED_EC_API_H
 
-#include <gruel/attributes.h>
+#include <gnuradio/attributes.h>
 
 #ifdef gnuradio_ec_EXPORTS
 #  define EC_API __GR_ATTR_EXPORT

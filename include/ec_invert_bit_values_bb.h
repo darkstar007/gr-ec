@@ -22,7 +22,7 @@
 #define INCLUDED_EC_INVERT_BIT_VALUES_BB_H
 
 #include <ec_api.h>
-#include <gr_sync_block.h>
+#include <gnuradio/sync_block.h>
 
 class ec_invert_bit_values_bb;
 typedef boost::shared_ptr<ec_invert_bit_values_bb> ec_invert_bit_values_bb_sptr;
@@ -33,7 +33,7 @@ EC_API ec_invert_bit_values_bb_sptr ec_make_invert_bit_values_bb ();
 * \brief <+description+>
 *
 */
-class EC_API ec_invert_bit_values_bb : public gr_sync_block
+class EC_API ec_invert_bit_values_bb : public gr::sync_block
 {
 friend EC_API ec_invert_bit_values_bb_sptr ec_make_invert_bit_values_bb ();
 

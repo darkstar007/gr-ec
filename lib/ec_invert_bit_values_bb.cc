@@ -22,7 +22,7 @@
 #include "config.h"
 #endif
 
-#include <gr_io_signature.h>
+#include <gnuradio/io_signature.h>
 #include <ec_invert_bit_values_bb.h>
 
 
@@ -34,9 +34,9 @@ return ec_invert_bit_values_bb_sptr (new ec_invert_bit_values_bb ());
 
 
 ec_invert_bit_values_bb::ec_invert_bit_values_bb ()
-: gr_sync_block ("invert_bit_values_bb",
-gr_make_io_signature (1, 1, sizeof (unsigned char)),
-gr_make_io_signature (1, 1, sizeof (unsigned char)))
+     : gr::sync_block ("invert_bit_values_bb",
+		       gr::io_signature::make (1, 1, sizeof (unsigned char)),
+		       gr::io_signature::make (1, 1, sizeof (unsigned char)))
 {
 }
 
@@ -48,8 +48,8 @@ ec_invert_bit_values_bb::~ec_invert_bit_values_bb ()
 
 int
 ec_invert_bit_values_bb::work (int noutput_items,
-gr_vector_const_void_star &input_items,
-gr_vector_void_star &output_items)
+			       gr_vector_const_void_star &input_items,
+			       gr_vector_void_star &output_items)
 {
 const unsigned char *in = (const unsigned char *) input_items[0];
 unsigned char *out = (unsigned char *) output_items[0];

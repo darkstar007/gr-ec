@@ -22,7 +22,7 @@
 #define INCLUDED_EC_DESCRAMBLER_BB_H
 
 #include <ec_api.h>
-#include <gr_sync_block.h>
+#include <gnuradio/sync_block.h>
 
 class ec_descrambler_bb;
 typedef boost::shared_ptr<ec_descrambler_bb> ec_descrambler_bb_sptr;
@@ -33,7 +33,7 @@ EC_API ec_descrambler_bb_sptr ec_make_descrambler_bb (unsigned int tap_mask, uns
 * \brief <+description+>
 *
 */
-class EC_API ec_descrambler_bb : public gr_sync_block
+class EC_API ec_descrambler_bb : public gr::sync_block
 {
 friend EC_API ec_descrambler_bb_sptr ec_make_descrambler_bb (unsigned int tap_mask, unsigned int preload);
 

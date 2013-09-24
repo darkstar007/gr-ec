@@ -22,19 +22,19 @@
 #define INCLUDED_EC_AX25_DECODER_B_H
 
 #include <ec_api.h>
-#include <gr_sync_block.h>
-#include <ppio.h>
-#include <gr_msg_queue.h>
-#include <gr_file_sink_base.h>
+#include <gnuradio/sync_block.h>
+//#include <ppio.h>
+#include <gnuradio/msg_queue.h>
+#include <gnuradio/blocks/file_sink_base.h>
 
 class ec_ax25_decoder_b;
 typedef boost::shared_ptr<ec_ax25_decoder_b> ec_ax25_decoder_b_sptr;
 
-EC_API ec_ax25_decoder_b_sptr ec_make_ax25_decoder_b (gr_msg_queue_sptr msgq, bool printing, int print_to_file, const char *filename);
+EC_API ec_ax25_decoder_b_sptr ec_make_ax25_decoder_b (gr::msg_queue::sptr msgq, bool printing, int print_to_file, const char *filename);
 
-class EC_API ec_ax25_decoder_b : public gr_sync_block
+class EC_API ec_ax25_decoder_b : public gr::sync_block
 {
-friend EC_API ec_ax25_decoder_b_sptr ec_ax25_router_decoder_b (gr_msg_queue_sptr msgq, bool printing, int print_to_file, const char *filename);
+     friend EC_API ec_ax25_decoder_b_sptr ec_ax25_router_decoder_b (gr::msg_queue::sptr msgq, bool printing, int print_to_file, const char *filename);
 
  private:
   static const int           SUCCESS      = 1;
@@ -48,11 +48,11 @@ friend EC_API ec_ax25_decoder_b_sptr ec_ax25_router_decoder_b (gr_msg_queue_sptr
   static const int           FRAMING      = 2;
 
   // Private Attributes ---------
-	bool d_printing;
-	const char * d_filename;
-	unsigned char d_print_to_file;
+     bool d_printing;
+     const char * d_filename;
+     unsigned char d_print_to_file;
   // Frame Relay's Data Link Channel Indicator
-	gr_msg_queue_sptr  d_target_queue;
+     gr::msg_queue::sptr  d_target_queue;
   // State machine state info
   int            d_state;
   unsigned char  d_byte;  // Accumulator for building a flag byte from bits
@@ -88,7 +88,7 @@ friend EC_API ec_ax25_decoder_b_sptr ec_ax25_router_decoder_b (gr_msg_queue_sptr
 
 // protected:
 public:
-  ec_ax25_decoder_b(gr_msg_queue_sptr msgq, bool printing, int print_to_file, const char *filename);
+     ec_ax25_decoder_b(gr::msg_queue::sptr msgq, bool printing, int print_to_file, const char *filename);
 
  public:
   ~ec_ax25_decoder_b();

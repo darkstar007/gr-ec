@@ -19,8 +19,12 @@
 # Setup library
 ########################################################################
 include(GrPlatform) #define LIB_SUFFIX
+
+include_directories(${Boost_INCLUDE_DIR})
+link_directories(${Boost_LIBRARY_DIRS})
+
 add_library(gnuradio-ec SHARED ec_ax25_decoder_b.cc ec_descrambler_bb.cc ec_invert_bit_values_bb.cc )
-target_link_libraries(gnuradio-ec ${Boost_LIBRARIES} ${GRUEL_LIBRARIES} ${GNURADIO_CORE_LIBRARIES})
+target_link_libraries(gnuradio-ec ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES})
 set_target_properties(gnuradio-ec PROPERTIES DEFINE_SYMBOL "gnuradio_ec_EXPORTS")
 
 ########################################################################
@@ -41,4 +45,5 @@ include(GrTest)
 set(GR_TEST_TARGET_DEPS gnuradio-ec)
 #turn each test cpp file into an executable with an int main() function
 add_definitions(-DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN)
+
 

@@ -22,10 +22,10 @@
 #include "config.h"
 #endif
 
-#include <gr_io_signature.h>
+#include <gnuradio/io_signature.h>
 #include <ec_ax25_decoder_b.h>
 
-#include <ppio.h>
+//#include <ppio.h>
 #include <cstdio>
 #include <stdexcept>
 #include <time.h>
@@ -479,10 +479,10 @@ ec_ax25_decoder_b::hdlc_state_machine(unsigned char next_bit)
 
 // Constructor
 
-ec_ax25_decoder_b::ec_ax25_decoder_b (gr_msg_queue_sptr msgq, bool printing, int print_to_file, const char *filename)
-: gr_sync_block ("ax25_decoder_b",
-		   gr_make_io_signature(1, 1, sizeof(unsigned char)),
-		   gr_make_io_signature(0, 0, 0)),
+ec_ax25_decoder_b::ec_ax25_decoder_b (gr::msg_queue::sptr msgq, bool printing, int print_to_file, const char *filename)
+     : gr::sync_block ("ax25_decoder_b",
+		       gr::io_signature::make(1, 1, sizeof(unsigned char)),
+		       gr::io_signature::make(0, 0, 0)),
 	//gr_file_sink_base(filename, false),
 	d_target_queue(msgq),
 	d_printing(printing),
@@ -504,7 +504,7 @@ ec_ax25_decoder_b::ec_ax25_decoder_b (gr_msg_queue_sptr msgq, bool printing, int
 //--------------- Friend (public constructor) ------------------------
 
 ec_ax25_decoder_b_sptr
-ec_make_ax25_decoder_b (gr_msg_queue_sptr msgq, bool printing, int print_to_file, const char *filename)
+ec_make_ax25_decoder_b (gr::msg_queue::sptr msgq, bool printing, int print_to_file, const char *filename)
 {
 return ec_ax25_decoder_b_sptr (new ec_ax25_decoder_b (msgq, printing, print_to_file, filename));
 }
