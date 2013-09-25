@@ -378,6 +378,7 @@ ec_ax25_decoder_b::hdlc_state_machine(unsigned char next_bit)
 		// Preload the first 7 bits to get things started
 		d_byte = (d_byte >> 1) | (next_bit << 7);
 		d_accumulated_bits++;
+		//std::cout << "State = HUNT " << d_accumulated_bits << std::endl;
 		if(d_accumulated_bits < 7){
 			next_state = HUNT;
 		}
@@ -387,6 +388,7 @@ ec_ax25_decoder_b::hdlc_state_machine(unsigned char next_bit)
 		break;
 
 		case IDLE:
+		     //cout << "State = IDLE" << std::endl;
 		d_byte = (d_byte >> 1) | (next_bit << 7);
 		if(d_byte == FLAG){
 			// Count it and keep hunting for more flags
@@ -408,7 +410,7 @@ ec_ax25_decoder_b::hdlc_state_machine(unsigned char next_bit)
 		break;
 
 		case FRAMING:
-		//fprintf(stderr, "State = FRAMING   bit_buf_size = %d\n", bit_buf_size);
+		     //std::cout << "State = FRAMING   bit_buf_size = "<< d_bit_buf_size << std::endl;
 		// Collect frame bits in bit_buf for later unstuffing
 		if(d_bit_buf_size < BIT_BUF_MAX){
 			d_bit_buf[d_bit_buf_size] = next_bit;
@@ -483,18 +485,17 @@ ec_ax25_decoder_b::ec_ax25_decoder_b (gr::msg_queue::sptr msgq, bool printing, i
      : gr::sync_block ("ax25_decoder_b",
 		       gr::io_signature::make(1, 1, sizeof(unsigned char)),
 		       gr::io_signature::make(0, 0, 0)),
-	//gr_file_sink_base(filename, false),
-	d_target_queue(msgq),
-	d_printing(printing),
-	d_print_to_file(print_to_file),
-	d_filename(filename)/*,
-    d_state(HUNT),
-    d_byte(0x00),
-    d_accumulated_bits(0),
-    d_bit_buf_size(0),
-    d_consecutive_one_bits(0),
-    d_flag_cnt(0),
-    d_good_byte_cnt(0),*/
+       d_target_queue(msgq),
+       d_printing(printing),
+       d_print_to_file(print_to_file),
+       d_filename(filename),
+       d_state(HUNT),
+       d_byte(0x00),
+       d_accumulated_bits(0),
+       d_bit_buf_size(0),
+       d_consecutive_one_bits(0),
+       d_flag_cnt(0),
+       d_good_byte_cnt(0)
 {
   //******INITIALIZATION HERE ******
 }
@@ -532,7 +533,8 @@ gr_vector_void_star &output_items)
 //  int             bit_count;
 //  unsigned char   next_bit;
   // Loop thru each byte of the input stream, one bit per byte
-	printf("%c",d_print_to_file);
+//	printf("%c",d_print_to_file);
+
   for(i=0; i<noutput_items; i++)
   {
     hdlc_state_machine(inbuf[i] & 0x01);  // Low order bit
